@@ -63,6 +63,11 @@ func main() {
 			userBMR := strconv.FormatFloat(user.BMR, 'f', 2, 64)
 			userBMR = userBMR + " calories"
 
+			log.Printf("calories %f", user.Calories)
+			log.Printf("fat %f", user.FatIntake)
+			log.Printf("carbs %f", user.CarbohydrateIntake)
+			log.Printf("protein %f", user.ProteinIntake)
+
 			data := [][]string{{"BMR", userBMR},
 				{"Suggested daily caloric intake", recommended}}
 

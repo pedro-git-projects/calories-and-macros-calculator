@@ -1,15 +1,21 @@
 package calculator
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type User struct {
-	Age           int
-	Height        float64
-	Weight        float64
-	BMR           float64
-	Calories      float64
-	Gender        Gender
-	ActivityLevel ActivityLevel
+	Age                int
+	Height             float64
+	Weight             float64
+	BMR                float64
+	Calories           float64
+	Gender             Gender
+	ActivityLevel      ActivityLevel
+	CarbohydrateIntake float64
+	ProteinIntake      float64
+	FatIntake          float64
 }
 
 func NewUser(age int, height float64, weight float64, gender Gender, activity ActivityLevel) (*User, error) {
@@ -32,6 +38,8 @@ func NewUser(age int, height float64, weight float64, gender Gender, activity Ac
 	if err != nil {
 		return nil, err
 	}
+
+	u.calculateMacroSplit()
 
 	return &u, nil
 }
@@ -64,4 +72,12 @@ func (u User) CalculateCalories() (float64, error) {
 		return -1, errors.New("invalid activity level" + u.ActivityLevel.String())
 
 	}
+}
+
+func (u *User) calculateMacroSplit() {
+	u.ProteinIntake = (u.Calories * 0.35) / float64(Protein.caloriesPerGram)
+	u.FatIntake = (u.Calories * 0.15) / float64(Fat.caloriesPerGram)
+	u.CarbohydrateIntake = (u.Calories * 0.50) / float64(Carbohydrate.caloriesPerGram)
+
+	fmt.Printf("total calories = %f", u.Calories*0.35+u.Calories*0.15+u.Calories*0.50)
 }
