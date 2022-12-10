@@ -53,9 +53,29 @@ func main() {
 
 			fmt.Println(age.Text)
 			iAge, err := strconv.Atoi(age.Text)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
 			fHeight, err := strconv.ParseFloat(height.Text, 64)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
 			fWeight, err := strconv.ParseFloat(weight.Text, 64)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
 			gGender, err := calculator.GenderFromString(gender.Selected)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
 			aActivity, err := calculator.ActivityLevelFromString(activity.Selected)
 			if err != nil {
 				log.Println(err)
