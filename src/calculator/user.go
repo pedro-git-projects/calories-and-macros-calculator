@@ -75,6 +75,6 @@ func (u User) CalculateCalories() (float64, error) {
 
 func (u *User) calculateMacroSplit() {
 	u.ProteinIntake = (u.Calories * 0.35) / float64(Protein.caloriesPerGram)
-	u.FatIntake = (u.Calories * 0.15) / float64(Fat.caloriesPerGram)
-	u.CarbohydrateIntake = (u.Calories * 0.50) / float64(Carbohydrate.caloriesPerGram)
+	u.FatIntake = (u.Calories * 0.20) / float64(Fat.caloriesPerGram)
+	u.CarbohydrateIntake = (u.Calories * 0.45) / float64(Carbohydrate.caloriesPerGram)
 }
