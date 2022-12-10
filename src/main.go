@@ -63,15 +63,15 @@ func main() {
 			userBMR := strconv.FormatFloat(user.BMR, 'f', 2, 64)
 			userBMR = userBMR + " calories"
 
-			data := [][]string{{"Suggested daily caloric intake", recommended},
-				{"BMR", userBMR}}
+			data := [][]string{{"BMR", userBMR},
+				{"Suggested daily caloric intake", recommended}}
 
 			list := widget.NewTable(
 				func() (int, int) {
 					return len(data), len(data[0])
 				},
 				func() fyne.CanvasObject {
-					return widget.NewLabel("Suggested daily calorie intake")
+					return widget.NewLabel("#####################################")
 				},
 				func(i widget.TableCellID, o fyne.CanvasObject) {
 					o.(*widget.Label).SetText(data[i.Row][i.Col])
