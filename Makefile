@@ -6,4 +6,3 @@ run:
 
 clean:
 	rm ./build/calculator
-

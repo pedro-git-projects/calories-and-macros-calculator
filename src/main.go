@@ -1,8 +1,11 @@
 package main
 
 import (
+	"calories-and-macros-calculator/src/calculator"
 	"log"
+	"strconv"
 
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/widget"
 )
@@ -41,6 +44,22 @@ func main() {
 			{Text: "Activity", Widget: activity}},
 
 		OnSubmit: func() {
+			iAge, err := strconv.Atoi(age.Text)
+			fHeight, err := strconv.ParseFloat(height.Text, 64)
+			fWeight, err := strconv.ParseFloat(weight.Text, 64)
+			gGender, err := calculator.GenderFromString(gender.Selected)
+			aActivity, err := calculator.ActivityLevelFromString(activity.Selected)
+			if err != nil {
+				log.Println(err)
+			}
+
+			user, err := calculator.NewUser(iAge, fHeight, fWeight, gGender, aActivity)
+			if err != nil {
+				log.Println(err)
+			}
+
+			log.Println(user)
+
 			log.Println("Form submitted", age.Text)
 			log.Println("Form submitted", height.Text)
 			log.Println("Form submitted", weight.Text)
@@ -48,6 +67,7 @@ func main() {
 		},
 	}
 
+	w.Resize(fyne.NewSize(500, 500))
 	w.SetContent(form)
 	w.ShowAndRun()
 }
