@@ -2,6 +2,8 @@ package main
 
 import (
 	"calories-and-macros-calculator/src/calculator"
+	"calories-and-macros-calculator/src/utils"
+	"fmt"
 	"log"
 	"strconv"
 
@@ -29,22 +31,27 @@ func main() {
 	weight := widget.NewEntry()
 
 	activity := widget.NewSelect([]string{bmr, sedentary, light, moderate, active, veryActive}, func(value string) {
-		log.Println(value)
 	})
 
 	gender := widget.NewRadioGroup([]string{"male", "female"}, func(value string) {
-		log.Println(value)
 	})
 
 	form := &widget.Form{
 		Items: []*widget.FormItem{
-			{Text: "Age", Widget: age},
+			{Text: "Age in years", Widget: age},
 			{Text: "Gender", Widget: gender},
-			{Text: "Height", Widget: height},
-			{Text: "Weight", Widget: weight},
+			{Text: "Height in cm", Widget: height},
+			{Text: "Weight in kg", Widget: weight},
 			{Text: "Activity", Widget: activity}},
 
 		OnSubmit: func() {
+			err := utils.IsEmpty(age.Text, height.Text, weight.Text)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
+			fmt.Println(age.Text)
 			iAge, err := strconv.Atoi(age.Text)
 			fHeight, err := strconv.ParseFloat(height.Text, 64)
 			fWeight, err := strconv.ParseFloat(weight.Text, 64)
@@ -52,11 +59,13 @@ func main() {
 			aActivity, err := calculator.ActivityLevelFromString(activity.Selected)
 			if err != nil {
 				log.Println(err)
+				return
 			}
 
 			user, err := calculator.NewUser(iAge, fHeight, fWeight, gGender, aActivity)
 			if err != nil {
 				log.Println(err)
+				return
 			}
 
 			recommended := strconv.FormatFloat(user.Calories, 'f', 2, 64)
@@ -97,6 +106,8 @@ func main() {
 			w2.SetContent(list)
 			w2.Show()
 		},
+
+		SubmitText: "Calculate",
 	}
 
 	w.Resize(fyne.NewSize(500, 500))
