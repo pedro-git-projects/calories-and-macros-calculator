@@ -7,6 +7,7 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -92,12 +93,14 @@ func main() {
 
 			w2 := a.NewWindow("Calories and Macros Calculator - Results")
 			w2.Resize(fyne.NewSize(500, 600))
+			w2.SetIcon(theme.FyneLogo())
 			w2.SetContent(list)
 			w2.Show()
 		},
 	}
 
 	w.Resize(fyne.NewSize(500, 500))
+	w.SetIcon(theme.FyneLogo())
 	w.SetContent(form)
 	w.ShowAndRun()
 }
