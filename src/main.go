@@ -1,9 +1,13 @@
 package main
 
 import (
+	"calories-and-macros-calculator/src/calculator"
 	"log"
+	"strconv"
 
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -41,13 +45,62 @@ func main() {
 			{Text: "Activity", Widget: activity}},
 
 		OnSubmit: func() {
-			log.Println("Form submitted", age.Text)
-			log.Println("Form submitted", height.Text)
-			log.Println("Form submitted", weight.Text)
-			// myWindow.Close() <- use when this is not the main window
+			iAge, err := strconv.Atoi(age.Text)
+			fHeight, err := strconv.ParseFloat(height.Text, 64)
+			fWeight, err := strconv.ParseFloat(weight.Text, 64)
+			gGender, err := calculator.GenderFromString(gender.Selected)
+			aActivity, err := calculator.ActivityLevelFromString(activity.Selected)
+			if err != nil {
+				log.Println(err)
+			}
+
+			user, err := calculator.NewUser(iAge, fHeight, fWeight, gGender, aActivity)
+			if err != nil {
+				log.Println(err)
+			}
+
+			recommended := strconv.FormatFloat(user.Calories, 'f', 2, 64)
+			recommended = recommended + " calories"
+			userBMR := strconv.FormatFloat(user.BMR, 'f', 2, 64)
+			userBMR = userBMR + " calories"
+
+			userCarbohydrate := strconv.FormatFloat(user.CarbohydrateIntake, 'f', 2, 64)
+			userCarbohydrate = userCarbohydrate + " grams"
+
+			userProtein := strconv.FormatFloat(user.ProteinIntake, 'f', 2, 64)
+			userProtein = userProtein + " grams"
+
+			userFat := strconv.FormatFloat(user.FatIntake, 'f', 2, 64)
+			userFat = userFat + " grams"
+
+			data := [][]string{{"BMR", userBMR},
+				{"Suggested Daily Caloric Intake", recommended},
+				{"Carbohydrate", userCarbohydrate},
+				{"Protein", userProtein},
+				{"Fat", userFat},
+			}
+
+			list := widget.NewTable(
+				func() (int, int) {
+					return len(data), len(data[0])
+				},
+				func() fyne.CanvasObject {
+					return widget.NewLabel("Suggested daily caloric intake  ")
+				},
+				func(i widget.TableCellID, o fyne.CanvasObject) {
+					o.(*widget.Label).SetText(data[i.Row][i.Col])
+				})
+
+			w2 := a.NewWindow("Calories and Macros Calculator - Results")
+			w2.Resize(fyne.NewSize(500, 600))
+			w2.SetIcon(theme.FyneLogo())
+			w2.SetContent(list)
+			w2.Show()
 		},
 	}
 
+	w.Resize(fyne.NewSize(500, 500))
+	w.SetIcon(theme.FyneLogo())
 	w.SetContent(form)
 	w.ShowAndRun()
 }
