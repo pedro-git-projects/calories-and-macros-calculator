@@ -2,7 +2,6 @@ package calculator
 
 import (
 	"errors"
-	"fmt"
 )
 
 type User struct {
@@ -78,6 +77,4 @@ func (u *User) calculateMacroSplit() {
 	u.ProteinIntake = (u.Calories * 0.35) / float64(Protein.caloriesPerGram)
 	u.FatIntake = (u.Calories * 0.15) / float64(Fat.caloriesPerGram)
 	u.CarbohydrateIntake = (u.Calories * 0.50) / float64(Carbohydrate.caloriesPerGram)
-
-	fmt.Printf("total calories = %f", u.Calories*0.35+u.Calories*0.15+u.Calories*0.50)
 }

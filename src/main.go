@@ -73,10 +73,10 @@ func main() {
 			userFat = userFat + " grams"
 
 			data := [][]string{{"BMR", userBMR},
-				{"Suggested daily caloric intake", recommended},
-				{"Carbohydrate:", userCarbohydrate},
-				{"Protein:", userProtein},
-				{"Fat:", userFat},
+				{"Suggested Daily Caloric Intake", recommended},
+				{"Carbohydrate", userCarbohydrate},
+				{"Protein", userProtein},
+				{"Fat", userFat},
 			}
 
 			list := widget.NewTable(
