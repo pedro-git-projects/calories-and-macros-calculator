@@ -5,28 +5,28 @@ import "errors"
 type ActivityLevel int
 
 const (
-	BMR ActivityLevel = iota
-	Sedentary
-	Light
-	Moderate
-	Active
-	VeryActive
+	bmr ActivityLevel = iota
+	sedentary
+	light
+	moderate
+	active
+	veryActive
 	unknownActivityLevel
 )
 
 func (a ActivityLevel) String() string {
 	switch a {
-	case BMR:
+	case bmr:
 		return "Basal Metabolic Rate (BMR)"
-	case Sedentary:
+	case sedentary:
 		return "Sedentary: little to no exercise"
-	case Light:
+	case light:
 		return "Lightly active: 1-3 times/week"
-	case Moderate:
+	case moderate:
 		return "Moderately active: 4-5 times/week"
-	case Active:
+	case active:
 		return "Active: 6-7 times/week"
-	case VeryActive:
+	case veryActive:
 		return "Very active: hard exercise 6-7 times/week"
 	default:
 		return "unknown"
@@ -36,15 +36,17 @@ func (a ActivityLevel) String() string {
 func ActivityLevelFromString(s string) (ActivityLevel, error) {
 	switch s {
 	case "Basal Metabolic Rate (BMR)":
-		return BMR, nil
+		return bmr, nil
 	case "Sedentary: little to no exercise":
-		return Sedentary, nil
+		return sedentary, nil
+	case "Lightly active: 1-3 times/week":
+		return light, nil
 	case "Moderately active: 4-5 times/week":
-		return Moderate, nil
+		return moderate, nil
 	case "Active: 6-7 times/week":
-		return Active, nil
+		return active, nil
 	case "Very active: hard exercise 6-7 times/week":
-		return VeryActive, nil
+		return veryActive, nil
 	default:
 		return unknownActivityLevel, errors.New("unknown activity level" + s)
 	}

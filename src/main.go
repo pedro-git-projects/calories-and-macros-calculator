@@ -58,12 +58,29 @@ func main() {
 				log.Println(err)
 			}
 
-			log.Println(user)
+			recommended := strconv.FormatFloat(user.Calories, 'f', 2, 64)
+			recommended = recommended + " calories"
+			userBMR := strconv.FormatFloat(user.BMR, 'f', 2, 64)
+			userBMR = userBMR + " calories"
 
-			log.Println("Form submitted", age.Text)
-			log.Println("Form submitted", height.Text)
-			log.Println("Form submitted", weight.Text)
-			// myWindow.Close() <- use when this is not the main window
+			data := [][]string{{"Suggested daily caloric intake", recommended},
+				{"BMR", userBMR}}
+
+			list := widget.NewTable(
+				func() (int, int) {
+					return len(data), len(data[0])
+				},
+				func() fyne.CanvasObject {
+					return widget.NewLabel("Suggested daily calorie intake")
+				},
+				func(i widget.TableCellID, o fyne.CanvasObject) {
+					o.(*widget.Label).SetText(data[i.Row][i.Col])
+				})
+
+			w2 := a.NewWindow("Calories and Macros Calculator - Results")
+			w2.Resize(fyne.NewSize(500, 500))
+			w2.SetContent(list)
+			w2.Show()
 		},
 	}
 

@@ -5,16 +5,16 @@ import "errors"
 type Gender int
 
 const (
-	Male Gender = iota
-	Female
+	male Gender = iota
+	female
 	unknownGender
 )
 
 func (g Gender) String() string {
 	switch g {
-	case Male:
+	case male:
 		return "male"
-	case Female:
+	case female:
 		return "female"
 	default:
 		return "unknown"
@@ -24,9 +24,9 @@ func (g Gender) String() string {
 func GenderFromString(s string) (Gender, error) {
 	switch s {
 	case "male":
-		return Male, nil
+		return male, nil
 	case "female":
-		return Female, nil
+		return female, nil
 	default:
 		return unknownGender, errors.New("Unknown gender" + s)
 	}

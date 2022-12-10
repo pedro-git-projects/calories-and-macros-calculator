@@ -37,31 +37,31 @@ func NewUser(age int, height float64, weight float64, gender Gender, activity Ac
 }
 
 func (u User) CalculateBMR() (float64, error) {
-	if u.Gender == Male {
+	if u.Gender == male {
 		return 66.5 + (13.75 * u.Weight) + (5.003 * u.Height) - (6.75 * float64(u.Age)), nil
 	}
-	if u.Gender == Female {
+	if u.Gender == female {
 		return 655.1 + (9.563 * u.Weight) + (1.850 * u.Height) - (4.676 * float64(u.Age)), nil
 	}
-	return 0, errors.New("unknown gender " + u.Gender.String())
+	return -1, errors.New("unknown gender " + u.Gender.String())
 }
 
 func (u User) CalculateCalories() (float64, error) {
 	switch u.ActivityLevel {
-	case BMR:
+	case bmr:
 		return u.BMR, nil
-	case Sedentary:
+	case sedentary:
 		return u.BMR * 1.2, nil
-	case Light:
+	case light:
 		return u.BMR * 1.375, nil
-	case Moderate:
+	case moderate:
 		return u.BMR * 1.55, nil
-	case Active:
+	case active:
 		return u.BMR * 1.75, nil
-	case VeryActive:
+	case veryActive:
 		return u.BMR * 1.9, nil
 	default:
-		return 0, errors.New("invalid activity level" + u.ActivityLevel.String())
+		return -1, errors.New("invalid activity level" + u.ActivityLevel.String())
 
 	}
 }
