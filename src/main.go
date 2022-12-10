@@ -63,13 +63,21 @@ func main() {
 			userBMR := strconv.FormatFloat(user.BMR, 'f', 2, 64)
 			userBMR = userBMR + " calories"
 
-			log.Printf("calories %f", user.Calories)
-			log.Printf("fat %f", user.FatIntake)
-			log.Printf("carbs %f", user.CarbohydrateIntake)
-			log.Printf("protein %f", user.ProteinIntake)
+			userCarbohydrate := strconv.FormatFloat(user.CarbohydrateIntake, 'f', 2, 64)
+			userCarbohydrate = userCarbohydrate + " grams"
+
+			userProtein := strconv.FormatFloat(user.ProteinIntake, 'f', 2, 64)
+			userProtein = userProtein + " grams"
+
+			userFat := strconv.FormatFloat(user.FatIntake, 'f', 2, 64)
+			userFat = userFat + " grams"
 
 			data := [][]string{{"BMR", userBMR},
-				{"Suggested daily caloric intake", recommended}}
+				{"Suggested daily caloric intake", recommended},
+				{"Carbohydrate:", userCarbohydrate},
+				{"Protein:", userProtein},
+				{"Fat:", userFat},
+			}
 
 			list := widget.NewTable(
 				func() (int, int) {
