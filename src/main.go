@@ -71,14 +71,14 @@ func main() {
 					return len(data), len(data[0])
 				},
 				func() fyne.CanvasObject {
-					return widget.NewLabel("#####################################")
+					return widget.NewLabel("Suggested daily caloric intake  ")
 				},
 				func(i widget.TableCellID, o fyne.CanvasObject) {
 					o.(*widget.Label).SetText(data[i.Row][i.Col])
 				})
 
 			w2 := a.NewWindow("Calories and Macros Calculator - Results")
-			w2.Resize(fyne.NewSize(500, 500))
+			w2.Resize(fyne.NewSize(500, 600))
 			w2.SetContent(list)
 			w2.Show()
 		},
