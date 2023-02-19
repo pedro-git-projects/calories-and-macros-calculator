@@ -2,6 +2,9 @@ package calculator
 
 import "errors"
 
+// ActivityLevel is an alias for the int type
+// which is used to define an enum for the
+// level of activity of the user
 type ActivityLevel int
 
 const (
@@ -14,6 +17,8 @@ const (
 	unknownActivityLevel
 )
 
+// String converts an instance of the activity level enum
+// to the corresponding string
 func (a ActivityLevel) String() string {
 	switch a {
 	case bmr:
@@ -33,6 +38,9 @@ func (a ActivityLevel) String() string {
 	}
 }
 
+// ActivityLevelFromString takes a string and converts it to
+// the corresponding ActivityLevel if it is possible.
+// Otherwise an error is returned
 func ActivityLevelFromString(s string) (ActivityLevel, error) {
 	switch s {
 	case "Basal Metabolic Rate (BMR)":

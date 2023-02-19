@@ -2,6 +2,9 @@ package calculator
 
 import "errors"
 
+// Gender is an alias for the int type
+// which is used to define an enum for the
+// gender of the user
 type Gender int
 
 const (
@@ -10,6 +13,8 @@ const (
 	unknownGender
 )
 
+// String converts an instance of the gender enum
+// to the corresponding string
 func (g Gender) String() string {
 	switch g {
 	case male:
@@ -21,6 +26,9 @@ func (g Gender) String() string {
 	}
 }
 
+// GenderFromString takes a string and converts it to
+// the corresponding Gender if it is possible.
+// Otherwise an error is returned
 func GenderFromString(s string) (Gender, error) {
 	switch s {
 	case "male":

@@ -4,6 +4,8 @@ import (
 	"errors"
 )
 
+// The User type stores both user provided data
+// application calculated data about the user
 type User struct {
 	Age                int
 	Height             float64
@@ -17,6 +19,8 @@ type User struct {
 	FatIntake          float64
 }
 
+// NewUser returns a new user instance with all fields calculated
+// NewUser can fail and return an error
 func NewUser(age int, height float64, weight float64, gender Gender, activity ActivityLevel) (*User, error) {
 	u := User{
 		Age:           age,
@@ -43,6 +47,8 @@ func NewUser(age int, height float64, weight float64, gender Gender, activity Ac
 	return &u, nil
 }
 
+// CalculateBMR calculates the user BMR according to the especified gender
+// if the gneder passed is invalid it returns an error
 func (u User) CalculateBMR() (float64, error) {
 	if u.Gender == male {
 		return 66.5 + (13.75 * u.Weight) + (5.003 * u.Height) - (6.75 * float64(u.Age)), nil
@@ -53,6 +59,8 @@ func (u User) CalculateBMR() (float64, error) {
 	return -1, errors.New("unknown gender " + u.Gender.String())
 }
 
+// CalculateCalories calculates calories according to the especified activity level
+// if the activity level is invalid it returns a non nil error
 func (u User) CalculateCalories() (float64, error) {
 	switch u.ActivityLevel {
 	case bmr:
@@ -73,6 +81,8 @@ func (u User) CalculateCalories() (float64, error) {
 	}
 }
 
+// calculateMacroSplit is a mutator on the User type which populates the
+// portein, fat and carb intake fields
 func (u *User) calculateMacroSplit() {
 	u.ProteinIntake = (u.Calories * 0.35) / float64(Protein.caloriesPerGram)
 	u.FatIntake = (u.Calories * 0.20) / float64(Fat.caloriesPerGram)
