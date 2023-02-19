@@ -17,24 +17,34 @@ const (
 	unknownActivityLevel
 )
 
+const (
+	BMRStr        = "Basal Metabolic Rate (BMR)"
+	SedentaryStr  = "Sedentary: little to no exercise"
+	LightStr      = "Lightly active: 1-3 times/week"
+	ModerateStr   = "Moderately active: 4-5 times/week"
+	ActiveStr     = "Active: 6-7 times/week"
+	VeryActiveStr = "Very active: hard exercise 6-7 times/week"
+	UnknownStr    = "unknown"
+)
+
 // String converts an instance of the activity level enum
 // to the corresponding string
 func (a ActivityLevel) String() string {
 	switch a {
 	case bmr:
-		return "Basal Metabolic Rate (BMR)"
+		return BMRStr
 	case sedentary:
-		return "Sedentary: little to no exercise"
+		return SedentaryStr
 	case light:
-		return "Lightly active: 1-3 times/week"
+		return SedentaryStr
 	case moderate:
-		return "Moderately active: 4-5 times/week"
+		return ModerateStr
 	case active:
-		return "Active: 6-7 times/week"
+		return ActiveStr
 	case veryActive:
-		return "Very active: hard exercise 6-7 times/week"
+		return VeryActiveStr
 	default:
-		return "unknown"
+		return UnknownStr
 	}
 }
 
@@ -43,17 +53,17 @@ func (a ActivityLevel) String() string {
 // Otherwise an error is returned
 func ActivityLevelFromString(s string) (ActivityLevel, error) {
 	switch s {
-	case "Basal Metabolic Rate (BMR)":
+	case BMRStr:
 		return bmr, nil
-	case "Sedentary: little to no exercise":
+	case SedentaryStr:
 		return sedentary, nil
-	case "Lightly active: 1-3 times/week":
+	case LightStr:
 		return light, nil
-	case "Moderately active: 4-5 times/week":
+	case ModerateStr:
 		return moderate, nil
-	case "Active: 6-7 times/week":
+	case ActiveStr:
 		return active, nil
-	case "Very active: hard exercise 6-7 times/week":
+	case VeryActiveStr:
 		return veryActive, nil
 	default:
 		return unknownActivityLevel, errors.New("unknown activity level" + s)
