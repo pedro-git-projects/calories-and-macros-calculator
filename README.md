@@ -19,16 +19,3 @@ Otherwise, you'll have to build it from source. If that is the case there are tw
 - GCC
 
 Once this two softwares are installed, you may run Make install if you're on a Unix system. Or run the go build command otherwise.
-
-## Future Releases
-
-Future releases will include:
-
-- Custom macro splits
-
-- Improved styling
-
-- A custom icon
-
-- Custom fonts
-	
